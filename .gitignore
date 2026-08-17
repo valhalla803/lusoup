@@ -1,0 +1,25 @@
+# Compiled binaries & libraries
+*.so
+*.o
+*.a
+*.dll
+*.dylib
+
+# LuaRocks generated files & build artifacts
+luarocks/
+*.rock
+*.src.rock
+.luarocks/
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Testing & Temporary files
+tests/temp_*
+*.log
