@@ -57,7 +57,8 @@ function Node:text()
         end
     end
 
-    return table.concat(texts, " "):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+    -- in parentheses, so only the string is returned, not gsub's count
+    return (table.concat(texts, " "):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", ""))
 end
 
 function Node:parent_node()

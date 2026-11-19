@@ -72,4 +72,8 @@ describe("lusoup", function()
         local soup = lusoup.parse("<div><parent></parent><p>a</p></div>")
         assert.is_nil(soup:select_one("p"):next_element())
     end)
+
+    it("text() returns only the text", function()
+        assert.are.equal(1, select("#", lusoup.parse("<p>a</p>"):select_one("p"):text()))
+    end)
 end)
