@@ -134,6 +134,13 @@ spec/conformance/fetch.sh -u
 ```
 
 
+The parser tests include some limited fuzzing, but with a fixed seed. For real extensive fuzzing:
+
+```bash
+lua spec/fuzz.lua -n 100000 [-s seed]
+```
+
+
 ---
 
 ## License
