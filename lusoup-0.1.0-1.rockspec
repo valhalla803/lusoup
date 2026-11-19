@@ -1,3 +1,4 @@
+rockspec_format = "3.0"
 package = "lusoup"
 version = "0.1.0-1"
 
@@ -19,6 +20,14 @@ description = {
 
 dependencies = {
    "lua >= 5.1"
+}
+
+test_dependencies = {
+   "busted"
+}
+
+test = {
+   type = "busted"
 }
 
 build = {
