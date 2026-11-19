@@ -53,4 +53,23 @@ describe("lusoup", function()
         local soup = lusoup.parse("<h2>Scraping with <span>Lusoup</span></h2>")
         assert.are.equal("Scraping with Lusoup", soup:select_one("h2"):text())
     end)
+
+    it("node fields are never looked up as descendant tags", function()
+        -- the root has no parent and elements have no text_content; reading
+        -- those must not search the tree for a <parent> or <text_content> tag
+        local soup = lusoup.parse("<div><parent></parent><text_content></text_content></div>")
+        assert.is_nil(soup.parent)
+        assert.is_nil(soup.div.text_content)
+        -- the shortcut still works for tag names
+        assert.are.equal(soup, soup.div.parent)
+        assert.are.equal("div", soup.div.tag)
+    end)
+
+    it("doesn't hang walking up to the root of a document with a <parent>", function()
+        -- the parser climbs to the root for a stray end tag, and next_element()
+        -- climbs to the root to start its search; both used to loop forever
+        lusoup.parse("<parent></parent></x>")
+        local soup = lusoup.parse("<div><parent></parent><p>a</p></div>")
+        assert.is_nil(soup:select_one("p"):next_element())
+    end)
 end)
