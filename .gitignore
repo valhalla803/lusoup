@@ -23,3 +23,6 @@ Thumbs.db
 # Testing & Temporary files
 tests/temp_*
 *.log
+
+# web-platform-tests parser tests, fetched by spec/conformance/fetch.sh
+spec/conformance/cases/

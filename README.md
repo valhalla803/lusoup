@@ -111,6 +111,29 @@ tests of attributes:
 luarocks test -- --filter="attributes"
 ```
 
+### Parser Conformance
+
+To test the parser's conformance with the HTML5 spec, fetch the HTML
+parser tests from [web-platform-tests](https://github.com/web-platform-tests/wpt/tree/master/html/syntax/parsing),
+then run the tests as usual:
+
+```bash
+spec/conformance/fetch.sh
+luarocks test             # or just: busted
+```
+
+These are the html5lib tree-construction tests, the de facto conformance
+suite for HTML parsers, used by browsers and parser authors; they're now
+maintained in web-platform-tests. The script fetches them into
+`spec/conformance/cases/`, at the commit pinned in
+`spec/conformance/wpt-commit`. To move to WPT's latest tests, which picks up
+new tests and drops removed ones:
+
+```bash
+spec/conformance/fetch.sh -u
+```
+
+
 ---
 
 ## License
