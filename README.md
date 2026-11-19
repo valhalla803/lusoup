@@ -82,6 +82,37 @@ end
 
 ---
 
+## Testing
+
+The tests use [busted](https://lunarmodules.github.io/busted/):
+
+```bash
+luarocks test             # or just: busted
+```
+
+Anything after `--` goes to `busted` (check `busted --help` for options).
+
+For example, to list each test by name instead of just by dot:
+
+```bash
+luarocks test -- -o TAP
+```
+
+or to test under a particular Lua version:
+
+```bash
+luarocks test -- --lua=lua5.4
+```
+
+or to run only the tests whose names match a Lua pattern, such as the
+tests of attributes:
+
+```bash
+luarocks test -- --filter="attributes"
+```
+
+---
+
 ## License
 ```
 MIT License © 2026
