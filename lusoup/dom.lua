@@ -13,9 +13,19 @@ function Node.new(tag, attrs, parent)
     return setmetatable(self, Node)
 end
 
+-- A node's own fields, as opposed to names of child nodes that can be
+-- accessed with the same syntax (e.g. node.children vs node.ul.li).
+local DECLARED_FIELDS = { tag = true, attrs = true, children = true, parent = true, text_content = true }
+
 function Node.__index(table, key)
     if Node[key] ~= nil then
         return Node[key]
+    end
+    if DECLARED_FIELDS[key] then
+        -- We end up here if someone asks for an undefined node attribute,
+        -- e.g. someone asks for node.parent but node is the root.
+        -- In that case, avoid incorrectly (and expensively) searching the tree.
+        return nil
     end
     if type(key) == "string" and not key:match("^_") then
         local child = table:find(key)
@@ -47,7 +57,8 @@ function Node:text()
         end
     end
 
-    return table.concat(texts, " "):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+    -- in parentheses, so only the string is returned, not gsub's count
+    return (table.concat(texts, " "):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", ""))
 end
 
 function Node:parent_node()
